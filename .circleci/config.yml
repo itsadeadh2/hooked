@@ -17,7 +17,7 @@ jobs:
             rm package-lock.json
             docker build -t hooked .
             docker rm -f hooked
-            docker run  --rm  --network web --name hooked -e PUBLIC_URL=www.itsadeadh2.com/projects/hooked -d hooked                                 
+            docker run  --rm  --network web --name hooked -d hooked                                 
             ENDSSH
 
 workflows:
