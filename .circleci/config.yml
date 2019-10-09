@@ -1,0 +1,29 @@
+version: 2
+jobs:
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - $FINGERPRINT
+      - run:
+          name: Deploy Over SSH
+          command: |
+            ssh $SSH_USER@$SSH_HOST <<'ENDSSH'
+            cd /telegram
+            cd /hooked
+            git pull origin master
+            rm package-lock.json
+            docker build -t hooked
+            docker run -p 5000:5000 -d hooked                                 
+            ENDSSH
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: master
