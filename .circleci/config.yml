@@ -16,7 +16,7 @@ jobs:
             git pull origin master
             rm package-lock.json
             docker build -t hooked .
-            docker run -name hooked -d hooked                                 
+            docker run  --rm --name hooked -d hooked                                 
             ENDSSH
 
 workflows:
